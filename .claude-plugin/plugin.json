@@ -1,0 +1,9 @@
+{
+  "name": "measure-twice",
+  "version": "0.1.0",
+  "description": "Before building automation or tooling, survey for what already exists and match the mechanism's trigger to the event that makes it relevant — measure twice, cut once.",
+  "author": { "name": "Heiko Brantsch" },
+  "homepage": "https://github.com/haiggoh/measure-twice",
+  "license": "MIT",
+  "keywords": ["skill", "hook", "behavior", "automation", "planning", "design", "cron", "hooks"]
+}
