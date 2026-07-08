@@ -23,9 +23,14 @@ event. Generalized, that's this plugin.
 ## Install — Claude Code (one-click)
 
 ```
-/plugin marketplace add haiggoh/measure-twice
+/plugin marketplace add haiggoh/claude-code-desktop-sync
 /plugin install measure-twice@haiggoh
 ```
+
+> The `haiggoh` marketplace catalog is hosted in the
+> [`claude-code-desktop-sync`](https://github.com/haiggoh/claude-code-desktop-sync) repo
+> (it lists several `haiggoh` plugins). Add the marketplace once from there, then install
+> `measure-twice` by name. This repo ships the plugin itself, not a marketplace catalog.
 
 You get:
 - a `measure-twice` **skill** (visible in `/skills`, zero token cost until invoked)
