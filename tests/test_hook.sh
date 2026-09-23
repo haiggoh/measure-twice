@@ -21,6 +21,10 @@ case "$(ctx "$OUT")" in *"SURVEY"*) r=0;; *) r=1;; esac; check $r "survey check 
 case "$(ctx "$OUT")" in *"MATCH the trigger"*) r=0;; *) r=1;; esac; check $r "trigger-match check present"
 case "$(ctx "$OUT")" in *"no-hidden-changes"*) r=0;; *) r=1;; esac; check $r "hand-off to no-hidden-changes present"
 
+case "$(ctx "$OUT")" in *"PARALLEL"*) r=0;; *) r=1;; esac; check $r "hook-ordering warning present"
+case "$(ctx "$OUT")" in *"fail-open"*) r=0;; *) r=1;; esac; check $r "coordination flag must be fail-open"
+case "$(ctx "$OUT")" in *"no priority field"*) r=0;; *) r=1;; esac; check $r "names the absent priority field"
+
 echo "== Case B: stateless — no systemMessage, no marker files written =="
 [ "$(jq -r '.systemMessage // "none"' "$OUT")" = "none" ]; check $? "no user-visible banner (model-only)"
 HOMEB="$TMP/home_b"; mkdir -p "$HOMEB"
