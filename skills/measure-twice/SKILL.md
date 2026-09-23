@@ -40,6 +40,37 @@ Ask: *"What real-world event makes this task relevant?"* Then pick the mechanism
 
 A visible-but-mis-triggered job is honest, just wasteful; getting the trigger right is the difference between machinery that earns its keep and machinery that fires into the void.
 
+## 3. Do not assume your hook runs in the order you wrote it
+
+If more than one hook can fire on the same event, **ordering is not yours to decide.** In Claude Code,
+SessionStart hooks contributed by different plugins run in **parallel with no ordering guarantee**, and
+neither `hooks.json` nor `plugin.json` has any priority, weight, or order field. Observed order matches
+neither install order, nor plugin name, nor the sequence in settings — it is a completion-order race.
+So a hook that *reads state another hook writes*, or a banner that must appear above someone else's, is
+built on an assumption the platform never made.
+
+Design for it rather than fighting it:
+
+- **Prefer not to need the order.** If the output only has to be *noticed*, win on prominence — layout
+  and a distinctive marker — instead of position. Most ordering wishes are really legibility wishes.
+- **If you genuinely need a predecessor to finish, use a one-way, best-effort, session-scoped flag.**
+  The producer writes `$TMPDIR-or-/tmp/<event>-<scope>/<session_id>.<producer>.done` in a `finally`,
+  atomically (write a temp file, then `os.replace`), right before it exits — **whether or not it
+  produced any output** — and it never reads or waits on anything itself. The consumer detects that the
+  producer is even installed by **reading the config** (for Claude Code, `enabledPlugins` in
+  `~/.claude/settings.json`) — never by importing its code — then polls for the flag with a **bounded**
+  wait (~0.75s in 0.05s ticks) and **always proceeds regardless**: no suppressing itself on a timeout,
+  an absent flag, or a malformed one. Check presence only; do not parse the contents.
+
+That yields ordering without a dependency. Both hooks still work standalone, there is no import in
+either direction, and the wait is bounded and fail-open — so the worst case is the race you already
+had, not a broken hook. It is the pattern to reach for when merging two hooks into one would violate a
+deliberate independence requirement.
+
+**Verify a timing- or TTY-gated path by running it, in every state.** A three-case live smoke test —
+producer not installed / installed but flag absent / flag present — costs minutes and is the only thing
+that proves the bounded wait actually bounds. Write the automated tests after, not instead.
+
 ## Hand off to no-hidden-changes
 
 Measure-twice covers *before you build* (survey) and *what to build* (trigger). The moment you actually install something, its sibling rule takes over:
