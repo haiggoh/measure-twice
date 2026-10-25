@@ -7,7 +7,7 @@
   "manifest": ".claude-plugin/plugin.json",
   "changelog": "CHANGELOG.md",
 
-
+  "test_cmd": "bash tests/test_hook.sh",
 
   "refresh_plugin": "measure-twice"
 }
