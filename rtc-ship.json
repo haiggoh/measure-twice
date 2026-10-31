@@ -9,5 +9,6 @@
 
   "test_cmd": "bash tests/test_hook.sh",
 
-  "refresh_plugin": "measure-twice"
+  "refresh_plugin": "measure-twice",
+  "require_default_branch_checkout": true
 }

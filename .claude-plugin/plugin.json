@@ -1,7 +1,7 @@
 {
   "name": "measure-twice",
-  "version": "0.2.1",
-  "description": "⚖️ Before building automation or tooling, survey for what already exists and match the mechanism's trigger to the event that makes it relevant — measure twice, cut once.",
+  "version": "0.2.2",
+  "description": "⚖️ Before building automation, surveys the hooks, cron jobs, launch agents, scripts and notes you already have, so it extends what exists instead of duplicating it, then matches the trigger to the real event — a SessionStart hook, a scheduled job, a watcher or a loop — so the machinery fires when it actually matters. A zero-cost skill plus a stateless SessionStart reminder.",
   "author": { "name": "Heiko Brantsch" },
   "homepage": "https://github.com/haiggoh/measure-twice",
   "license": "MIT",
