@@ -1,4 +1,4 @@
-# measure-twice
+# ⚖️ measure-twice
 
 A tiny Claude behavior rule: **before building automation, measure twice.** When a
 task calls for durable machinery — a cron job, a hook, a launch agent, a watcher, a

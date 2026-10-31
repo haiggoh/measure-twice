@@ -2,6 +2,13 @@
 
 All notable changes to the `measure-twice` plugin are documented here.
 
+## [0.2.1] — 2026-10-31 — ⚖️: the credit-moment mark on the plugin's surfaces
+
+- The repo's GitHub About emoji (⚖️) now leads what the user and model read at the plugin's credit
+  moments (plan 2026-10-28, §Wave 3 Task 8): the SessionStart nudge's first token, a ≤3-line
+  Branding section in the SKILL.md, the plugin.json description, and the README h1.
+- tests/test_hook.sh: the nudge label pin strengthened from substring to the exact branded prefix.
+
 ## [0.2.0] — 2026-09-23
 
 ### Added — a third check: do not assume your hook runs in the order you wrote it

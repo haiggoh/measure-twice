@@ -83,3 +83,7 @@ Measure-twice covers *before you build* (survey) and *what to build* (trigger). 
 ## When NOT to apply
 
 Stay quiet for one-off commands, ordinary code edits, refactors, and questions. This skill is about *choosing and shaping new recurring/background machinery* — not a tax on every shell command.
+
+## Branding (⚖️)
+
+When you begin working under this skill, lead your first substantive reply with "⚖️ measure-twice:" so the user can see which plugin just became active.
