@@ -2,6 +2,13 @@
 
 All notable changes to the `measure-twice` plugin are documented here.
 
+## [0.2.3] — 2026-11-09
+
+### Added
+- Transient-watcher exemption (nudge + skill): a bounded, one-event, `$TMPDIR`-only,
+  `run_in_background` watcher (prefer free-agents' `bin/watch-until`) is NOT durable
+  automation — no survey needed; anything that outlives the session or re-arms itself still is.
+
 ## [0.2.2] — 2026-10-31
 
 ### Changed

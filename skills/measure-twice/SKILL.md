@@ -80,6 +80,10 @@ Measure-twice covers *before you build* (survey) and *what to build* (trigger). 
 
 (That's the `no-hidden-changes` skill's job — install it too if you haven't.)
 
+## Transient watchers are exempt — not durable automation
+
+A **transient watcher** — bounded by a deadline, waits for one event, exits on detection, writes nothing outside `$TMPDIR`, installs nothing (no launchd/cron/hook/settings), started with `run_in_background` (prefer free-agents' `bin/watch-until`) — is NOT durable automation: use it freely, no survey needed. Anything that outlives the session or re-arms itself IS durable and still needs the two checks above.
+
 ## When NOT to apply
 
 Stay quiet for one-off commands, ordinary code edits, refactors, and questions. This skill is about *choosing and shaping new recurring/background machinery* — not a tax on every shell command.

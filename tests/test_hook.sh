@@ -35,5 +35,15 @@ HOME="$HOMEB" bash "$HOOK" >/dev/null
 echo "== Case C: hookEventName is SessionStart =="
 [ "$(jq -r '.hookSpecificOutput.hookEventName' "$OUT")" = "SessionStart" ]; check $? "hookEventName correct"
 
+echo "== Case D: transient watchers are exempt, durable automation still covered (2026-11-08 route-watcher Task 6) =="
+ctx "$OUT" | /usr/bin/grep -qi "transient watcher"; check $? "nudge names the transient-watcher exemption"
+ctx "$OUT" | /usr/bin/grep -qi "run_in_background"; check $? "exemption names run_in_background"
+ctx "$OUT" | /usr/bin/grep -qi "outlives the session or re-arms itself"; check $? "exemption states the durable boundary"
+# discriminant: the ORIGINAL durable wording must still be there (a launchd plist / cron line
+# description still trips the survey) — the exemption must not swallow durable cases
+ctx "$OUT" | /usr/bin/grep -q "durable automation"; check $? "durable-automation trigger wording still present"
+ctx "$OUT" | /usr/bin/grep -qi "launch agent"; check $? "launchd case still covered"
+ctx "$OUT" | /usr/bin/grep -qi "cron job"; check $? "cron case still covered"
+
 echo; echo "PASS=$pass FAIL=$fail"
 [ "$fail" -eq 0 ]
