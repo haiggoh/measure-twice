@@ -7,7 +7,7 @@
   "manifest": ".claude-plugin/plugin.json",
   "changelog": "CHANGELOG.md",
 
-  "test_cmd": "bash tests/test_hook.sh",
+  "test_cmd": "bash tests/test_hook.sh && bash tests/test_skill_yaml.sh",
 
   "refresh_plugin": "measure-twice",
   "require_default_branch_checkout": true

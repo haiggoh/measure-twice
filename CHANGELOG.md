@@ -2,6 +2,21 @@
 
 All notable changes to the `measure-twice` plugin are documented here.
 
+## [0.2.4] — 2026-11-12
+
+### Fixed
+- SKILL.md frontmatter: the `description:` value is now a double-quoted YAML scalar. It previously
+  contained unquoted `: ` sequences ("…before you create anything: (1) survey…"), which strict YAML
+  parsers reject outright (PyYAML `ScannerError`; the same class claude.ai upload validation
+  enforces). Claude Code's lenient loader masked it. The rendered description is byte-identical
+  (verified, 810 chars) — packaging changed, content did not.
+
+### Added
+- `tests/test_skill_yaml.sh`: strictly parses every `skills/*/SKILL.md` frontmatter (PyYAML;
+  falls back to the pipx pytest venv python when system python3 lacks pyyaml; exit 2, same
+  convention as the jq requirement) and asserts non-empty `name`/`description`; chained into the
+  rtc-ship gate after `test_hook.sh`.
+
 ## [0.2.3] — 2026-11-09
 
 ### Added
