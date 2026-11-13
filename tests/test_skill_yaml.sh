@@ -33,15 +33,24 @@ if not files:
 bad = 0
 for f in files:
     rel = os.path.relpath(f, root)
-    with open(f, encoding="utf-8") as fh:
-        txt = fh.read()
-    m = re.match(r"\A---\r?\n(.*?)\r?\n---\r?\n", txt, re.S)
-    if not m:
-        print(f"FAIL {rel}: no frontmatter block")
-        bad += 1
-        continue
     try:
-        d = yaml.safe_load(m.group(1))
+        with open(f, encoding="utf-8") as fh:
+            txt = fh.read()
+        m = re.match(r"\A---\r?\n(.*?)\r?\n---\r?\n", txt, re.S)
+        if not m:
+            print(f"FAIL {rel}: no frontmatter block")
+            bad += 1
+            continue
+        fm = m.group(1)
+        # Duplicate top-level keys: PyYAML silently keeps the last, but js-yaml (the
+        # parser class behind several loaders) rejects them. Column-0 key lines only,
+        # so a colon inside a quoted scalar value cannot false-positive.
+        for key in ("name", "description"):
+            hits = len(re.findall(r"^%s:" % key, fm, re.M))
+            if hits != 1:
+                print(f"FAIL {rel}: '{key}' appears {hits}x in frontmatter (strict parsers reject duplicates)")
+                bad += 1
+        d = yaml.safe_load(fm)
     except Exception as e:
         first = str(e).splitlines()[0][:160] if str(e) else ""
         print(f"FAIL {rel}: {type(e).__name__}: {first}")
