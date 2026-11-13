@@ -2,14 +2,29 @@
 
 All notable changes to the `measure-twice` plugin are documented here.
 
+## [0.2.5] — 2026-11-13
+
+### Changed
+- `tests/test_skill_yaml.sh` hardened per independent cross-family review: a duplicated
+  `name:`/`description:` key now fails the guard (PyYAML silently keeps the last value;
+  js-yaml-class parsers reject duplicates), and per-file open/read/match moved inside the try so
+  a non-UTF-8 SKILL.md reports a FAIL line instead of a raw traceback. Negative control: a
+  duplicated `name:` key → RED, restored → GREEN; gate test_hook 18/18 + yaml PASS.
+
+### Fixed
+- Release-notes accuracy: the 0.2.4 entry's clause "the same class claude.ai upload validation
+  enforces" reads as a demonstrated repro; it is an inference from the same error class (verified
+  against PyYAML only — no upload validator was run). Recorded here rather than rewriting the
+  published 0.2.4 notes; no code behavior change.
+
 ## [0.2.4] — 2026-11-12
 
 ### Fixed
 - SKILL.md frontmatter: the `description:` value is now a double-quoted YAML scalar. It previously
   contained unquoted `: ` sequences ("…before you create anything: (1) survey…"), which strict YAML
-  parsers reject outright (verified with PyYAML `ScannerError`; the same error class upload
-  validators enforce). Claude Code's lenient loader masked it. The rendered description is
-  byte-identical (verified, 810 chars) — packaging changed, content did not.
+  parsers reject outright (PyYAML `ScannerError`; the same class claude.ai upload validation
+  enforces). Claude Code's lenient loader masked it. The rendered description is byte-identical
+  (verified, 810 chars) — packaging changed, content did not.
 
 ### Added
 - `tests/test_skill_yaml.sh`: strictly parses every `skills/*/SKILL.md` frontmatter (PyYAML;
