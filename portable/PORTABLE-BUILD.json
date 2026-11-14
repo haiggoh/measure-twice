@@ -1,6 +1,6 @@
 {
   "builder": "scripts/build-portable.py",
-  "builder_version": "1.0.0",
+  "builder_version": "1.1.0",
   "components": [
     {
       "adaptation_class": "mechanical",
@@ -58,7 +58,7 @@
     "skills/measure-twice/SKILL.md": "650e9e228c03fc3fbb285394884e3952db85ad1df527eedaca1c2dd0c462c817"
   },
   "schema": "haiggoh-portable-build/1",
-  "source_commit": "73b7d3121a3a22ccbff0f87baa2ed8c10c8978a7",
-  "source_repo": "github.com/dm-measure-twice",
+  "source_commit": "e39797f0da51b694a220eb542f7ae90d5fc3a445",
+  "source_repo": "haiggoh/measure-twice",
   "transform_version": "1"
 }

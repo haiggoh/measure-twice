@@ -1,14 +1,10 @@
 {
   "_comment": "How rtc-ship.sh ships THIS repo (run-to-completion's bin/rtc-ship.sh). Data lives here; commands a repo needs live in .rtc/*.sh, opt-in by presence. Adding this file is config-only: no version bump, no release.",
-
   "tag_prefix": "v",
   "default_branch": "main",
-
   "manifest": ".claude-plugin/plugin.json",
   "changelog": "CHANGELOG.md",
-
-  "test_cmd": "bash tests/test_hook.sh && bash tests/test_skill_yaml.sh && pytest -q tests/test_portable.py",
-
+  "test_cmd": "bash tests/test_hook.sh && bash tests/test_skill_yaml.sh && PY=\"$(command -v python3)\"; \"$PY\" -c \"import pytest\" 2>/dev/null || PY=\"$HOME/.local/pipx/venvs/pytest/bin/python\"; \"$PY\" -m pytest -q tests/test_portable.py",
   "refresh_plugin": "measure-twice",
   "require_default_branch_checkout": true
 }
