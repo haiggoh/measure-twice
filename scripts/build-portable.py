@@ -246,6 +246,7 @@ def main(argv=None):
                 name = json.load(f)["name"]
             zpath = write_zip(fresh, args.out or os.path.join(root, "dist"), name)
             print(f"✓ wrote {zpath} (from a temp build; portable/ untouched)")
+            return 0  # --zip must never mutate the committed portable/ (test side-effect pin)
 
         swap_in(fresh, portable)
     n = len(walk_files(portable))
