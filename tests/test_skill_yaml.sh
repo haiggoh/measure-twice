@@ -26,6 +26,7 @@ import yaml
 
 root = sys.argv[1]
 files = sorted(glob.glob(os.path.join(root, "skills", "*", "SKILL.md")))
+files += sorted(glob.glob(os.path.join(root, "portable", "skills", "*", "SKILL.md")))
 if not files:
     print("NOFILES")
     sys.exit(2)

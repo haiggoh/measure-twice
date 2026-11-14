@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.2.6] — 2026-11-14
+
+### Added — Phase 2 pilot: committed portable package (COORDINATION C1/C2)
+
+- New `scripts/build-portable.py` (stdlib only, `--help`/`--check`/`--zip`) generates the
+  committed `portable/` directory deterministically from the host tree: manifest with the
+  SAME name (no double-run in Code), skill, and hook closure — no top-level `bin/`,
+  `${CLAUDE_PLUGIN_ROOT}`-relative hook path. Emits `portable/PORTABLE-BUILD.json`
+  (schema `haiggoh-portable-build/1`: source repo/commit, builder, per-file sha256,
+  components with adaptation class / evidence level / per-surface support) and, with
+  `--zip`, `dist/<name>-portable.zip` with the manifest at the zip root (gitignored).
+- Freshness is a gate: `--check` rebuilds into a temp dir and fails on any drift; the new
+  `tests/test_portable.py` pins freshness, same-name manifest, closure completeness
+  (every `${CLAUDE_PLUGIN_ROOT}` reference resolves inside portable/, no symlinks, no
+  `..` escapes), the C2 schema, and the zip shape.
+- The strict-YAML frontmatter test now globs `portable/skills/*/SKILL.md` too (carried
+  review note from the 0.2.4 wave: the glob must cover the portable tree).
+
 All notable changes to the `measure-twice` plugin are documented here.
 
 ## [0.2.5] — 2026-11-13
